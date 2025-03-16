@@ -1,7 +1,13 @@
-
 package ventana;
+
+import java.sql.PreparedStatement;
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import conexiones.Conexiones;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class VentanaLogin extends javax.swing.JFrame {
 
@@ -35,6 +41,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         b_acceder.setText("Acceder");
         b_acceder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         b_acceder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        b_acceder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_accederActionPerformed(evt);
+            }
+        });
         getContentPane().add(b_acceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 100, 40));
 
         b_salir.setBackground(new java.awt.Color(153, 153, 255));
@@ -87,12 +98,61 @@ public class VentanaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campo_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_passActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_campo_passActionPerformed
 
     private void b_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_salirActionPerformed
-        // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(null, 
+                                "¿Quiere salir de la aplicación?", "Confirmar", JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
     }//GEN-LAST:event_b_salirActionPerformed
+
+    int intentos = 0;
+
+    private void b_accederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_accederActionPerformed
+        Connection conexion = Conexiones.conectar();
+
+        String usuario = campo_usuario.getText();
+        String clave = new String(campo_pass.getPassword());
+
+        PreparedStatement consulta;
+        ResultSet resultado;
+
+        int control = 0;
+
+        try {
+            String sql = "SELECT * FROM usuarios where nombre_usuario = ? and clave = ?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, usuario);
+            consulta.setString(2, clave);
+            resultado = consulta.executeQuery();
+
+            String contrasena = new String(campo_pass.getPassword());
+
+            if (campo_usuario.getText().isEmpty() || contrasena.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos para iniciar sesión.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (resultado.next()) {
+                JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "LOGIN", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                intentos++;
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                campo_usuario.setText("");
+                campo_pass.setText("");
+            }
+            if (intentos == 3) {
+                JOptionPane.showMessageDialog(null,
+                        "Demasiados intentos fallidos. Su cuenta ha sido bloqueada por seguridad.\nContacte al administrador para obtener ayuda.",
+                        "AVISO", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_b_accederActionPerformed
 
     public static void main(String args[]) {
 
