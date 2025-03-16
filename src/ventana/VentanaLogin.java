@@ -44,7 +44,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         b_acceder.setBackground(new java.awt.Color(200, 200, 231));
         b_acceder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         b_acceder.setText("Acceder");
-        b_acceder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         b_acceder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         b_acceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +55,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         b_salir.setBackground(new java.awt.Color(200, 200, 231));
         b_salir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         b_salir.setText("Salir");
-        b_salir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         b_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_salirActionPerformed(evt);

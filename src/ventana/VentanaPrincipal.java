@@ -26,7 +26,7 @@ public VentanaPrincipal() {
         b_clientes = new javax.swing.JButton();
         l_logo = new javax.swing.JLabel();
         l_nombremodulo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        l_nombreapp = new javax.swing.JLabel();
         l_fondo = new javax.swing.JLabel();
         menubar = new javax.swing.JMenuBar();
         m_opciones = new javax.swing.JMenu();
@@ -45,15 +45,13 @@ public VentanaPrincipal() {
         b_email.setForeground(new java.awt.Color(102, 0, 153));
         b_email.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/email.png"))); // NOI18N
         b_email.setText("  E-mail");
-        b_email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
-        getContentPane().add(b_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 50, 130, 50));
+        getContentPane().add(b_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 120, 50));
 
         b_salir.setBackground(new java.awt.Color(200, 200, 231));
         b_salir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         b_salir.setForeground(new java.awt.Color(102, 0, 204));
         b_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         b_salir.setText(" Salir");
-        b_salir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 153)));
         getContentPane().add(b_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 270, 120, 50));
 
         b_volver.setBackground(new java.awt.Color(200, 200, 231));
@@ -61,7 +59,6 @@ public VentanaPrincipal() {
         b_volver.setForeground(new java.awt.Color(102, 0, 204));
         b_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/volver.png"))); // NOI18N
         b_volver.setText(" Volver");
-        b_volver.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 153)));
         b_volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_volverActionPerformed(evt);
@@ -74,7 +71,6 @@ public VentanaPrincipal() {
         b_deposito.setForeground(new java.awt.Color(102, 0, 153));
         b_deposito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/almacen.png"))); // NOI18N
         b_deposito.setText(" Depósito");
-        b_deposito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         getContentPane().add(b_deposito, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 180, 80));
 
         b_ventas.setBackground(new java.awt.Color(204, 204, 204));
@@ -82,7 +78,6 @@ public VentanaPrincipal() {
         b_ventas.setForeground(new java.awt.Color(102, 0, 153));
         b_ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ventas.png"))); // NOI18N
         b_ventas.setText(" Ventas");
-        b_ventas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         getContentPane().add(b_ventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 180, 80));
 
         b_productos.setBackground(new java.awt.Color(204, 204, 204));
@@ -90,7 +85,6 @@ public VentanaPrincipal() {
         b_productos.setForeground(new java.awt.Color(102, 0, 153));
         b_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos.png"))); // NOI18N
         b_productos.setText(" Productos");
-        b_productos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         getContentPane().add(b_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 180, 80));
 
         b_clientes.setBackground(new java.awt.Color(204, 204, 204));
@@ -98,7 +92,6 @@ public VentanaPrincipal() {
         b_clientes.setForeground(new java.awt.Color(102, 0, 153));
         b_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/clientes.png"))); // NOI18N
         b_clientes.setText(" Clientes");
-        b_clientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         getContentPane().add(b_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 180, 80));
 
         l_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo_f.png"))); // NOI18N
@@ -110,9 +103,9 @@ public VentanaPrincipal() {
         l_nombremodulo.setText("Módulo de administración");
         getContentPane().add(l_nombremodulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 960, 70));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Aplicación de Java © 2025");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, -1, -1));
+        l_nombreapp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        l_nombreapp.setText("Aplicación de Java © 2025");
+        getContentPane().add(l_nombreapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, -1, -1));
 
         l_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_ppal.png"))); // NOI18N
         getContentPane().add(l_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1006, 400));
@@ -181,9 +174,9 @@ public VentanaPrincipal() {
     private javax.swing.JButton b_salir;
     private javax.swing.JButton b_ventas;
     private javax.swing.JButton b_volver;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel l_fondo;
     private javax.swing.JLabel l_logo;
+    private javax.swing.JLabel l_nombreapp;
     private javax.swing.JLabel l_nombremodulo;
     private javax.swing.JMenu m_ayuda;
     private javax.swing.JMenu m_opciones;
