@@ -3,8 +3,6 @@ package ventana;
 import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import conexiones.Conexiones;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -13,7 +11,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
     public VentanaLogin() {
         initComponents();
-        Image icon = getToolkit().getImage(getClass().getResource("/imagenes/icon.png"));
+        Image icon = getToolkit().getImage(getClass().getResource("/imagenes/logo_f.png"));
         setIconImage(icon);
         setLocationRelativeTo(null);
     }
@@ -22,9 +20,10 @@ public class VentanaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         b_acceder = new javax.swing.JButton();
         b_salir = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        l_nombreapp = new javax.swing.JLabel();
         campo_pass = new javax.swing.JPasswordField();
         campo_usuario = new javax.swing.JTextField();
         l_pass = new javax.swing.JLabel();
@@ -36,8 +35,14 @@ public class VentanaLogin extends javax.swing.JFrame {
         setTitle("Iniciar sesión");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        b_acceder.setBackground(new java.awt.Color(153, 153, 255));
-        b_acceder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 0, 153));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("FERRETERÍA");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 220, -1));
+
+        b_acceder.setBackground(new java.awt.Color(200, 200, 231));
+        b_acceder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         b_acceder.setText("Acceder");
         b_acceder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         b_acceder.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -46,10 +51,10 @@ public class VentanaLogin extends javax.swing.JFrame {
                 b_accederActionPerformed(evt);
             }
         });
-        getContentPane().add(b_acceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 100, 40));
+        getContentPane().add(b_acceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 100, 30));
 
-        b_salir.setBackground(new java.awt.Color(153, 153, 255));
-        b_salir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        b_salir.setBackground(new java.awt.Color(200, 200, 231));
+        b_salir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         b_salir.setText("Salir");
         b_salir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         b_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -57,11 +62,11 @@ public class VentanaLogin extends javax.swing.JFrame {
                 b_salirActionPerformed(evt);
             }
         });
-        getContentPane().add(b_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 100, 40));
+        getContentPane().add(b_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 100, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Aplicación de Java © 2025");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 220, 20));
+        l_nombreapp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        l_nombreapp.setText("Aplicación de Java © 2025");
+        getContentPane().add(l_nombreapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 220, 20));
 
         campo_pass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         campo_pass.setForeground(new java.awt.Color(102, 0, 153));
@@ -72,24 +77,25 @@ public class VentanaLogin extends javax.swing.JFrame {
                 campo_passActionPerformed(evt);
             }
         });
-        getContentPane().add(campo_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 220, 30));
+        getContentPane().add(campo_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 220, 30));
 
         campo_usuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         campo_usuario.setForeground(new java.awt.Color(51, 0, 153));
         campo_usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
         campo_usuario.setSelectionColor(new java.awt.Color(204, 204, 255));
-        getContentPane().add(campo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 220, 30));
+        getContentPane().add(campo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 220, 30));
 
         l_pass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         l_pass.setText("Contraseña:");
-        getContentPane().add(l_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 220, -1));
+        getContentPane().add(l_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 220, -1));
 
         l_usuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         l_usuario.setText("Nombre de usuario:");
-        getContentPane().add(l_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 220, -1));
+        getContentPane().add(l_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 220, -1));
 
-        l_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo_1.png"))); // NOI18N
-        getContentPane().add(l_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 130, 130));
+        l_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        l_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo_f.png"))); // NOI18N
+        getContentPane().add(l_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 220, 90));
 
         l_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         getContentPane().add(l_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 401, 588));
@@ -102,10 +108,10 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_campo_passActionPerformed
 
     private void b_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_salirActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(null, 
-                                "¿Quiere salir de la aplicación?", "Confirmar", JOptionPane.YES_NO_OPTION,
-                                JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == JOptionPane.YES_OPTION){
+        int respuesta = JOptionPane.showConfirmDialog(null,
+                "¿Quiere salir de la aplicación?", "Confirmar", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_b_salirActionPerformed
@@ -169,9 +175,10 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JButton b_salir;
     private javax.swing.JPasswordField campo_pass;
     private javax.swing.JTextField campo_usuario;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel l_fondo;
     private javax.swing.JLabel l_logo;
+    private javax.swing.JLabel l_nombreapp;
     private javax.swing.JLabel l_pass;
     private javax.swing.JLabel l_usuario;
     // End of variables declaration//GEN-END:variables
