@@ -1,11 +1,11 @@
 
-package conexiones;
+package conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexiones {
+public class Conexion {
     private static final String URL = System.getenv("DB_URL");
     private static final String USER = System.getenv("DB_USUARIO");
     private static final String PASS = System.getenv("DB_PASS");
@@ -23,7 +23,6 @@ public class Conexiones {
     }
     
     public static void main(String[] args) {
-        Conexiones test = new Conexiones();
-        test.conectar();
+        Conexion.conectar();
     }
 }

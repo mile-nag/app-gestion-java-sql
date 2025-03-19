@@ -1,19 +1,23 @@
-package ventana;
+package ventanas;
 
 import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.sql.Connection;
-import conexiones.Conexiones;
+import conexion.Conexion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class VentanaLogin extends javax.swing.JFrame {
 
     public VentanaLogin() {
         initComponents();
+
         Image icon = getToolkit().getImage(getClass().getResource("/imagenes/logo_f.png"));
         setIconImage(icon);
+
         setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +43,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 0, 153));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("FERRETERÍA");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 220, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 400, -1));
 
         b_acceder.setBackground(new java.awt.Color(200, 200, 231));
         b_acceder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -63,8 +67,9 @@ public class VentanaLogin extends javax.swing.JFrame {
         getContentPane().add(b_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 100, 30));
 
         l_nombreapp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        l_nombreapp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l_nombreapp.setText("Aplicación de Java © 2025");
-        getContentPane().add(l_nombreapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 220, 20));
+        getContentPane().add(l_nombreapp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 400, 20));
 
         campo_pass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         campo_pass.setForeground(new java.awt.Color(102, 0, 153));
@@ -93,7 +98,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         l_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo_f.png"))); // NOI18N
-        getContentPane().add(l_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 220, 90));
+        getContentPane().add(l_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 400, 90));
 
         l_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         getContentPane().add(l_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 401, 588));
@@ -117,54 +122,49 @@ public class VentanaLogin extends javax.swing.JFrame {
     int intentos = 0;
 
     private void b_accederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_accederActionPerformed
-        Connection conexion = Conexiones.conectar();
-
         String usuario = campo_usuario.getText();
         String clave = new String(campo_pass.getPassword());
 
-        PreparedStatement consulta;
-        ResultSet resultado;
+        if (usuario.isEmpty() || clave.isEmpty()) {
+            mostrarMensaje("Por favor, complete todos los campos para iniciar sesión.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        int control = 0;
+        try (Connection conexion = Conexion.conectar(); PreparedStatement consulta = conexion.prepareStatement("SELECT * FROM usuarios WHERE nombre_usuario = ? AND clave = ?")) {
 
-        try {
-            String sql = "SELECT * FROM usuarios where nombre_usuario = ? and clave = ?";
-            consulta = conexion.prepareStatement(sql);
             consulta.setString(1, usuario);
             consulta.setString(2, clave);
-            resultado = consulta.executeQuery();
 
-            String contrasena = new String(campo_pass.getPassword());
-
-            if (campo_usuario.getText().isEmpty() || contrasena.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos para iniciar sesión.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-                return;
+            try (ResultSet resultado = consulta.executeQuery()) {
+                if (resultado.next()) {
+                   new VentanaPrincipal().setVisible(true);
+                } else {
+                    manejarIntentoFallido();
+                }
             }
-
-            if (resultado.next()) {
-                JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.", "LOGIN", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                intentos++;
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                campo_usuario.setText("");
-                campo_pass.setText("");
-            }
-            if (intentos == 3) {
-                JOptionPane.showMessageDialog(null,
-                        "Demasiados intentos fallidos. Su cuenta ha sido bloqueada por seguridad.\nContacte al administrador para obtener ayuda.",
-                        "AVISO", JOptionPane.WARNING_MESSAGE);
-            }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            mostrarMensaje("Error al conectar con la base de datos.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void manejarIntentoFallido() {
+        intentos++;
+        if (intentos >= 3) {
+            mostrarMensaje("Demasiados intentos fallidos. Su cuenta ha sido bloqueada por seguridad.\nContacte al administrador para obtener ayuda.", "AVISO", JOptionPane.WARNING_MESSAGE);
+        } else {
+            mostrarMensaje("Usuario o contraseña incorrectos. Intente de nuevo.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            campo_usuario.setText("");
+            campo_pass.setText("");
+        }
+    }
+
+    private void mostrarMensaje(String mensaje, String titulo, int tipoMensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, titulo, tipoMensaje);
     }//GEN-LAST:event_b_accederActionPerformed
 
     public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new VentanaLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentanaLogin().setVisible(true);
         });
     }
 
